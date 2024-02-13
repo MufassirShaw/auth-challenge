@@ -2,12 +2,15 @@ import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 
-import { Input, Button, Error } from "@/components"
+import { Input, Button, Error, Spinner } from "@/components"
 import { AuthLayout } from "@/components/Auth/layout"
 import { ISignin } from "@/types/auth"
 import { useSignin } from "@/hook/useSignin"
+import { useUser } from "@/hook/useUser"
 
 export default function SignIn() {
+  const { data: user } = useUser()
+
   const {
     register,
     handleSubmit,
@@ -21,6 +24,11 @@ export default function SignIn() {
     const { access_token } = data
     localStorage.setItem("token", access_token)
     router.push("/")
+  }
+
+  if (user) {
+    router.push("/")
+    return <Spinner fullPage />
   }
 
   return (

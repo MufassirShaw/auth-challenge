@@ -2,10 +2,11 @@ import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 
-import { Input, Button, Error } from "@/components"
+import { Input, Button, Error, Spinner } from "@/components"
 import { AuthLayout } from "@/components/Auth/layout"
 import { ISignup } from "@/types/auth"
 import { useSignup } from "@/hook/useSignup"
+import { useUser } from "@/hook/useUser"
 
 const PASSWORD_REGX =
   /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
@@ -13,6 +14,8 @@ const PASSWORD_REGX =
 const EMAIL_REGX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function SignUp() {
+  const { data } = useUser()
+
   const {
     register,
     handleSubmit,
@@ -28,6 +31,11 @@ export default function SignUp() {
     const { access_token } = data
     localStorage.setItem("token", access_token)
     router.push("/")
+  }
+
+  if (data) {
+    router.push("/")
+    return <Spinner fullPage />
   }
 
   return (

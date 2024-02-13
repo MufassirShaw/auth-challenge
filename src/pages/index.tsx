@@ -1,18 +1,18 @@
-import Image from "next/image"
 import { Inter } from "next/font/google"
 import { useUser } from "@/hook/useUser"
+import { Button, Spinner } from "@/components"
+import { useRouter } from "next/router"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export default function Home() {
-  const { data: user, isLoading, error } = useUser()
-
-  if (isLoading) {
-    return "Loading ...."
+  const { data: user, isLoading } = useUser()
+  const handleLogout = () => {
+    localStorage.removeItem("token")
   }
 
-  if (error) {
-    return <p>error: {error.response?.data?.message || error.message}</p>
+  if (isLoading || !user) {
+    return <Spinner fullPage />
   }
 
   return (

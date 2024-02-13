@@ -1,14 +1,14 @@
 <h1>EasyGen Challenge frontend </h1>
 
-<h2>Getting Started<h2>
+<h2>Getting Started</h2>
 
 1. Install all of the packages
 ``` bash
 yarn 
-  # OR
+# or
 npm i   
 ```
-
+1. Update the `NEXT_PUBLIC_BASE_API_URL` in `.env` with url of the [backend](https://github.com/MufassirShaw/nestjs-auth) app 
 2. Run the development server:
 
 ```bash
